@@ -21,15 +21,13 @@ def loginPage(request):
         try:
             user = User.objects.get(email=email)
         except:
-            messages.error(request, 'User Doesnt Exist')
+            messages.error(request, 'wrong credentials')
 
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('home')
-        else:
-            messages.error(request, 'username or password does not exist')
 
     context = {'page': page}
     return render(request, 'base/login_register.html', context)
@@ -52,7 +50,7 @@ def registerPage(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'An error occurred during registration')
+            messages.error(request, 'Your password must be 8 characters long')
 
     return render(request, 'base/login_register.html', {'form': form})
 
