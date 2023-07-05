@@ -95,8 +95,8 @@
                     <span class="room__topics">{{room.topic}}</span>
                 </div>
                 <div class="room__conversation">
-                    {% for message in room_messages %}
                     <div class="threads scroll">
+                        {% for message in room_messages %}
                         <div class="thread">
                             <div class="thread__top">
                                 <div class="thread__author">
@@ -126,15 +126,15 @@
                                 {{message.body}}
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
             {% if request.user.is_authenticated %}
             <div class="room__message">
                 <form method="POST" action="">
                     {% csrf_token %}
-                    <input type="text" name="body" placeholder="Write your message here..."/>
+                    <input name="body" placeholder="Write your message here..."/>
                 </form>
             </div>
             {% endif %}
