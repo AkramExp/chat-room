@@ -89,9 +89,9 @@
                             <span>@{{room.host.username}}</span>
                         </a>
                     </div>
-<!--                    <div class="room__details">-->
-<!--                        {{room.description}}-->
-<!--                    </div>-->
+                    <!--                    <div class="room__details">-->
+                    <!--                        {{room.description}}-->
+                    <!--                    </div>-->
                     <span class="room__topics">{{room.topic}}</span>
                 </div>
                 <div class="room__conversation">
@@ -104,7 +104,7 @@
                                         <div class="avatar avatar--small">
                                             <img src="{{message.user.avatar.url}}"/>
                                         </div>
-                                        <span>@{{message.user}}</span>
+                                        <span>@{{message.user.username}}</span>
                                     </a>
                                     <span class="thread__date">{{message.created|timesince}} ago</span>
                                 </div>
@@ -151,8 +151,8 @@
                         <img src="{{user.avatar.url}}"/>
                     </div>
                     <p>
-                        {{user}}
-                        <span>@{{user}}</span>
+                        {{user.name}}
+                        <span>@{{user.username}}</span>
                     </p>
                 </a>
                 {% endfor %}
@@ -163,48 +163,3 @@
 </main>
 
 {% endblock content %}
-
-
-<!--<div class="room-container">-->
-<!--    <div>-->
-<!--        <h1>{{room.name}}</h1>-->
-
-<!--        <p>{{room.description}}</p>-->
-
-<!--        <div class="comment-wrapper">-->
-<!--            <h3>Conversation</h3>-->
-<!--            <hr>-->
-
-<!--            {% for message in room_messages %}-->
-<!--            <div>-->
-<!--                {% if request.user == message.user %}-->
-<!--                <a href="{% url 'delete-message' message.id %}">Delete</a>-->
-<!--                {% endif %}-->
-<!--                <small>@{{message.user}} {{message.created|timesince}} ago </small>-->
-<!--                <p>{{message.body}}</p>-->
-<!--                <hr>-->
-<!--            </div>-->
-<!--            {% endfor %}-->
-<!--        </div>-->
-
-<!--        {% if request.user.is_authenticated %}-->
-<!--        <div>-->
-<!--            <form method="POST" action="">-->
-<!--                {% csrf_token %}-->
-<!--                <input type="text" name="body" placeholder="Write your message here...">-->
-<!--            </form>-->
-<!--        </div>-->
-<!--        {% endif %}-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--        <h3>Participants</h3>-->
-<!--        {% for user in participants %}-->
-<!--        <div>-->
-<!--            <p>@{{user}}</p>-->
-<!--        </div>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
-
-<!--</div>-->
-
