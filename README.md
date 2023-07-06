@@ -8,6 +8,7 @@ A website made in **Django** which is a web framework in **Python**.
 - You can search the room of the topics you want from search bar or from the topics area.
 - A **Dockerfile** in the repo to build the docker image of the website
 
+**Live Site** https://study-chat-room.onrender.com/
 
 ## Run Locally
 
