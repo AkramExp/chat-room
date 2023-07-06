@@ -128,4 +128,4 @@ CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = False
 
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['https://st-fs0m.onrender.com/']
+CSRF_TRUSTED_ORIGINS = ['http://*', 'https://*']
