@@ -7,8 +7,10 @@ from .forms import RoomForm, UserForm
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from .forms import MyUserCreationForm
+from django.views.decorators.csrf import csrf_protect
 
 
+@csrf_protect
 def loginPage(request):
     page = 'login'
     if request.user.is_authenticated:
@@ -33,11 +35,13 @@ def loginPage(request):
     return render(request, 'base/login_register.html', context)
 
 
+@csrf_protect
 def logoutUser(request):
     logout(request)
     return redirect('home')
 
 
+@csrf_protect
 def registerPage(request):
     form = MyUserCreationForm()
 
@@ -50,11 +54,12 @@ def registerPage(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Your password must be 8 characters long')
+            messages.error(request, 'Either username and email exists or your password is too small')
 
     return render(request, 'base/login_register.html', {'form': form})
 
 
+@csrf_protect
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
 
@@ -70,6 +75,7 @@ def home(request):
     return render(request, 'base/home.html', context)
 
 
+@csrf_protect
 def room(request, pk):
     room = Room.objects.get(id=pk)
     room_messages = room.message_set.all().order_by('-created')
@@ -87,6 +93,7 @@ def room(request, pk):
     return render(request, 'base/room.html/', context)
 
 
+@csrf_protect
 @login_required(login_url='login')
 def createRoom(request):
     form = RoomForm()
@@ -107,6 +114,7 @@ def createRoom(request):
     return render(request, 'base/room_form.html/', context)
 
 
+@csrf_protect
 @login_required(login_url='login')
 def updateRoom(request, pk):
     topics = Topic.objects.all()
@@ -126,6 +134,7 @@ def updateRoom(request, pk):
     return render(request, 'base/room_form.html', context)
 
 
+@csrf_protect
 @login_required(login_url='login')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
@@ -139,6 +148,7 @@ def deleteRoom(request, pk):
     return render(request, 'base/delete.html', {'obj': room})
 
 
+@csrf_protect
 @login_required(login_url='login')
 def deleteMessage(request, pk):
     message = Message.objects.get(id=pk)
@@ -149,6 +159,7 @@ def deleteMessage(request, pk):
     return render(request, 'base/delete.html', {'obj': message})
 
 
+@csrf_protect
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
@@ -159,6 +170,7 @@ def userProfile(request, pk):
     return render(request, 'base/profile.html', context)
 
 
+@csrf_protect
 @login_required(login_url='login')
 def updateUser(request):
     user = request.user
@@ -172,6 +184,7 @@ def updateUser(request):
     return render(request, 'base/update_user.html', {'form': form})
 
 
+@csrf_protect
 def topicsPage(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     topics = Topic.objects.filter(name__icontains=q)
@@ -179,6 +192,7 @@ def topicsPage(request):
     return render(request, 'base/topics.html', context)
 
 
+@csrf_protect
 def activityPage(request):
     room_messages = Message.objects.all()
     return render(request, 'base/activity.html', {'room_messages': room_messages})
