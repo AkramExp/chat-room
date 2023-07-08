@@ -32,6 +32,7 @@ Run the server
 ```
 
 ### Run with Docker
+You can change the credentials for admin page in Dockerfile
 
 Build docker image
 
